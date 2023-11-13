@@ -1,0 +1,51 @@
+<div class='modal-header'>
+    <h4 class='modal-title'>{{id_persoana ? 'Modificare' : 'Adăugare'}} Persoană</h4>
+  </div>
+  
+  <div class='modal-body'>
+    <div class='row'>
+      <label class='col-2 control-label'>Nume*</label>
+      <div class='col-9'>
+        <input [(ngModel)]='modal.nume' class='form-control' placeholder='Nume...' maxlength='255' required />
+      </div>
+      <div style="color: red;" *ngIf="validate===0 && !modal.nume">Numele este obligatoriu!</div>
+
+    </div>
+
+    <div class='row'>
+        <label class='col-2 control-label'>Prenume*</label>
+        <div class='col-9'>
+          <input [(ngModel)]='modal.prenume' class='form-control' placeholder='Prenume...' maxlength='255' required/>
+        </div>
+        <div style="color: red;" *ngIf="validate===0 && !modal.prenume">Prenumele este obligatoriu!</div>
+    </div>
+  
+    <div class='row'>
+        <label class='col-2 control-label'>CNP*</label>
+        <div class='col-9'>
+          <input type="number" (keyup)="calculVarsta(modal.cnp)" [(ngModel)]='modal.cnp' class='form-control' placeholder='CNP...' maxlength='13' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required="required"/>
+        </div>
+        <div style="color: red;" *ngIf="validate===0 && !modal.cnp">CNP-ul este obligatoriu!</div>
+
+    </div>
+    <div class='row'>
+        <label class='col-2 control-label'>Vârsta*</label>
+        <div class='col-9'>
+          <input type="number" [readOnly]="true" [(ngModel)]='modal.varsta' class='form-control' placeholder='Varsta...' maxlength='3' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required/>
+        </div>
+        <div style="color: red;" *ngIf="validate===0 && !modal.varsta">Vârsta este obligatorie!</div>
+    </div>
+    <div class='row'>
+      <label class='col-2 control-label'>Mașina*</label>
+      <div class='col-9'>
+        <ng-select [items]="masiniToate" bindLabel="denumire_marca" bindValue="id" [multiple]="true" placeholder="Masini..." [(ngModel)] = 'masiniSelectate' [compareWith]="compareFn"></ng-select>
+      </div>
+  </div>
+
+  </div>
+  
+  <div class='modal-footer'>
+    <button type='button' class='btn btn-outline-dark' (click)='activeModal.dismiss()'>Renunță</button>
+    <button type='button' class='btn btn-success' (click)='save()'>Salvează</button>
+
+  </div>

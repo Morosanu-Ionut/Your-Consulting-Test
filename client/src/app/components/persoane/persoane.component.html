@@ -1,0 +1,81 @@
+<div class="col-12 mt-2 width-1220">
+    <div class='row'>
+      <div class='col-4'>
+        <button class='btn btn-primary btn-sm' type='button' (click)='addEdit()'>
+          <fa-icon [icon]='faPlus'></fa-icon> Adaugă
+        </button>
+        <!-- <button class='btn btn-primary btn-sm' type='button' (click)='ceva()'>
+          <fa-icon [icon]='faPlus'></fa-icon> Adaugă
+        </button> -->
+      </div>
+      <div class='col-4'>
+        <h4 class='text-center'>{{title}}</h4>
+      </div>
+      <div class='col-4'></div>
+    </div>
+
+    <div class='row'>
+        <div class='col-12 width-1220'>
+          <table class='table table-striped table-hover'>
+            <thead>
+              <tr class='table-bordered'>
+                <th width='60px' rowspan='3'>Nm. Crt.</th>
+                <th width='250px' rowspan='2'>Nume / Prenume</th>
+                <th width='180px' rowspan='2'>CNP</th>
+                <th width='100px' rowspan='2'>Vârsta</th>
+                <th width='536px' rowspan='1'>Mașini</th>
+                <th rowspan='3' width='70px'></th>
+              </tr>
+              <tr>
+                <table>
+                  <thead>
+                    <tr>
+                      <th width='134px'>Model / Marca</th>
+                      <th width='134px'>An Fabricație</th>
+                      <th width='134px'>Capacitate Cilindrică</th>
+                      <th width='134px'>Taxă Impozit</th>
+                    </tr>
+                  </thead>
+                </table>
+              </tr>
+              <tr>
+                <th><input class='form-control input-xs' placeholder='Căutare...'></th>
+                <th><input class='form-control input-xs' placeholder='Căutare...'></th>
+                <th><input class='form-control input-xs' placeholder='Căutare...'></th>
+                <th><input class='form-control input-xs' placeholder='Căutare...'></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <div class='col-12 position-relative width-1220'>
+            <div id='view' class='view-scroll-informations' style='max-height: 60vh;' [scrollWindow]='false' (scroll)='showTopButton()' infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="30" (scrolled)="onScrollDown()">
+              <button type='button' id='back-top' class={{this.showBackTop}} (click)='onScrollTop()'>
+                <fa-icon [icon]='faChevronUp'></fa-icon>
+              </button>
+              <table class='table table-hover table-striped table-bordered font-14 p-0'>
+                <tbody>
+                  <tr *ngFor='let p of persoane.slice(0, limit)' (dblclick)='addEdit(p.id)' class='cursor-pointer'>
+                    <td width='60px' class='text-center'>{{p.id}}</td>
+                    <td width='250px'>{{p.nume}} {{p.prenume}}</td>
+                    <td width='180px' class='text-center'>{{p.cnp}}</td>
+                    <td width='100px' class='text-center'>{{p.varsta}}</td>
+                    <td width='536px' class='text-center'>
+                      <app-masini-table [id_persone]="p.id"></app-masini-table>
+                    </td>
+                    <td width='30px' (click)='addEdit(p.id)' class='text-center' matTooltip='Modificare' matTooltipPosition='left'>
+                      <fa-icon class='text-primary' [icon]='faEdit'></fa-icon>
+                    </td>
+                    <td width='30px' (click)='delete(p)' class='text-center' matTooltip='Ștergere' matTooltipPosition='left'>
+                      <fa-icon class='text-danger' [icon]='faTrashAlt'></fa-icon>
+                    </td>
+                  </tr>
+                  <tr colspan='15' *ngIf='!persoane.length' class='text-center fw-bold'>
+                    <td>Date inexistente!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+    </div>  
+</div>

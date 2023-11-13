@@ -1,0 +1,54 @@
+<div class='modal-header'>
+    <h4 class='modal-title'>{{id_masina ? 'Modificare' : 'Adăugare'}} masina</h4>
+  </div>
+  
+  <div class='modal-body'>
+    <div class='row'>
+      <label class='col-2 control-label'>Denumire Marca*</label>
+      <div class='col-9'>
+        <input [(ngModel)]='modal.denumire_marca' class='form-control' placeholder='Denumire...' maxlength='255' required name="dMacara"/>
+      </div>
+      <div style="color: red;" *ngIf="validate===0 && !modal.denumire_marca">Denumirea Marcii este obligatorie!</div>
+
+    </div>
+
+    <div class='row'>
+        <label class='col-2 control-label'>Denumire Model*</label>
+        <div class='col-9'>
+          <input [(ngModel)]='modal.denumire_model' class='form-control' placeholder='Denumire...' maxlength='255' required/>
+        </div>
+        <div style="color: red;" *ngIf="validate===0 && !modal.denumire_model">Denumirea Modelului este obligatorie!</div>
+    </div>
+  
+    <div class='row'>
+        <label class='col-2 control-label'>An Fabricație*</label>
+        <div class='col-9'>
+          <input type="number" [(ngModel)]='modal.an_fabricatie' class='form-control' placeholder='An...' maxlength='4' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required="required"/>
+        </div>
+        <div style="color: red;" *ngIf="validate===0 && !modal.an_fabricatie">Anul Fabricației este obligatoriu!</div>
+
+    </div>
+    <div class='row'>
+        <label class='col-2 control-label'>Capacitate Cilindrică*</label>
+        <div class='col-9'>
+          <input type="number" (keyup)="calculImpozit(modal.capacitate_cilindrica)" [(ngModel)]='modal.capacitate_cilindrica' class='form-control' placeholder='Capacitate...' maxlength='4' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required/>
+        </div>
+        <div style="color: red;" *ngIf="validate===0 && !modal.capacitate_cilindrica">Capacitatea Cilindrică este obligatorie!</div>
+
+    </div>
+
+    <div class='row'>
+        <label class='col-2 control-label'>Taxă de Impozitare*</label>
+        <div class='col-9'>
+          <input type="number" [readonly]="true" [(ngModel)]='modal.taxa_impozit' class='form-control' placeholder='Taxa...' maxlength='4' oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required/>
+        </div>
+        <div style="color: red;" *ngIf="validate===0 && !modal.taxa_impozit">Taxa de Impozitare este obligatorie!</div>
+
+    </div>
+
+  </div>
+  
+  <div class='modal-footer'>
+    <button type='button' class='btn btn-outline-dark' (click)='activeModal.dismiss()'>Renunță</button>
+    <button type='button' class='btn btn-success' (click)='save()'>Salvează</button>
+  </div>
